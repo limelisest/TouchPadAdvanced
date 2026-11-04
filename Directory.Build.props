@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'TouchPadAdvanced.Core'">
+    <BaseIntermediateOutputPath>obj/core/</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'TouchPadAdvanced'">
+    <BaseIntermediateOutputPath>obj/ui/</BaseIntermediateOutputPath>
+  </PropertyGroup>
+</Project>

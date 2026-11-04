@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWinUI>true</UseWinUI>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>false</SelfContained>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <PublishDir>release</PublishDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="app.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UI/**/*.cs"/>
+    <ProjectReference Include="TouchPadAdvanced.Core.csproj"/>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.6.4"/>
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2957"/>
+  </ItemGroup>
+  <Target Name="IncludeWinUiResourcesInPublish" AfterTargets="ComputeFilesToPublish">
+    <ItemGroup>
+      <_WinUiResource Include="$(TargetDir)**/*.xbf;$(TargetDir)$(AssemblyName).pri"/>
+    </ItemGroup>
+    <ItemGroup>
+      <ResolvedFileToPublish Include="@(_WinUiResource)">
+        <RelativePath>%(_WinUiResource.RecursiveDir)%(_WinUiResource.Filename)%(_WinUiResource.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+</Project>
